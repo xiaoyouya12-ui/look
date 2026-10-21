@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>云栈技术 · 自动化脚本 / 部署 / 数据 / 网络 一站式技术伙伴</title>
+<meta name="description" content="自动化脚本开发、系统部署运维、数据采集处理、网络架构搭建。技术老手带你把重复活交给机器，把精力留给增长。" />
+<style>
+  :root{
+    --bg:#0a0e1a; --bg2:#0d1424; --card:#111a2e; --line:rgba(255,255,255,.08);
+    --txt:#e6edf6; --sub:#93a1b8; --green:#20a53a; --cyan:#22d3ee;
+    --grad:linear-gradient(120deg,var(--green),var(--cyan));
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--txt);background:var(--bg);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  /* nav */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
+    background:rgba(10,14,26,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;height:64px;gap:28px}
+  .logo{font-weight:800;font-size:19px;letter-spacing:.5px}
+  .logo b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  nav .links{display:flex;gap:22px;margin-left:8px}
+  nav .links a{color:var(--sub);font-size:14px;transition:.2s}
+  nav .links a:hover{color:var(--txt)}
+  .nav-cta{margin-left:auto;background:var(--grad);color:#04130a;font-weight:700;
+    padding:9px 18px;border-radius:999px;font-size:14px}
+  /* hero */
+  .hero{position:relative;padding:96px 0 72px;text-align:center;overflow:hidden}
+  .hero:before{content:"";position:absolute;inset:-30% 0 auto 0;height:520px;
+    background:radial-gradient(60% 60% at 50% 0,rgba(34,211,238,.18),transparent 70%);
+    pointer-events:none}
+  .hero .tag{display:inline-block;font-size:13px;color:var(--cyan);border:1px solid var(--line);
+    padding:5px 14px;border-radius:999px;background:var(--card);margin-bottom:22px}
+  .hero h1{font-size:clamp(30px,5vw,52px);line-height:1.18;margin:0 0 18px;font-weight:800}
+  .hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--sub);font-size:17px;max-width:680px;margin:0 auto 32px}
+  .hero .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{font-weight:700;padding:13px 26px;border-radius:999px;font-size:15px;transition:.2s;cursor:pointer;border:0}
+  .btn.pri{background:var(--grad);color:#04130a}
+  .btn.ghost{background:var(--card);color:var(--txt);border:1px solid var(--line)}
+  .btn:hover{transform:translateY(-2px)}
+  /* section */
+  section{padding:64px 0}
+  .sec-h{text-align:center;margin-bottom:44px}
+  .sec-h h2{font-size:clamp(24px,3.4vw,34px);margin:0 0 10px}
+  .sec-h p{color:var(--sub);margin:0}
+  /* capabilities */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .cap{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;transition:.25s}
+  .cap:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.4)}
+  .cap .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+    background:rgba(34,211,238,.12);font-size:22px;margin-bottom:14px}
+  .cap h3{margin:0 0 8px;font-size:17px}
+  .cap p{margin:0;color:var(--sub);font-size:13.5px}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
+  .stat .n{font-size:34px;font-weight:800;background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{color:var(--sub);font-size:13.5px;margin-top:4px}
+  /* process */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative}
+  .step:before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:20px;
+    width:30px;height:30px;border-radius:50%;background:var(--grad);color:#04130a;
+    font-weight:800;display:grid;place-items:center;font-size:14px}
+  .step h4{margin:6px 0 8px;font-size:16px}
+  .step p{margin:0;color:var(--sub);font-size:13.5px}
+  /* wechat cta */
+  .wx{background:linear-gradient(135deg,#0f1b30,#10261c);border:1px solid var(--line);
+    border-radius:22px;padding:48px;display:flex;gap:40px;align-items:center;flex-wrap:wrap}
+  .wx .txt{flex:1;min-width:260px}
+  .wx h2{margin:0 0 10px;font-size:26px}
+  .wx p{color:var(--sub);margin:0 0 18px}
+  .wx .qr{width:160px;height:160px;border-radius:16px;background:#fff;display:grid;place-items:center;
+    color:#0a0e1a;font-size:13px;text-align:center;padding:10px;flex-shrink:0}
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--sub);font-size:13px;text-align:center}
+  @media(max-width:860px){
+    .grid,.stats,.steps{grid-template-columns:repeat(2,1fr)}
+    nav .links{display:none}
+    .wx{padding:32px;justify-content:center;text-align:center}
+  }
+  @media(max-width:520px){.grid,.stats,.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">云栈<b>技术</b></div>
+      <div class="links">
+        <a href="#cap">核心能力</a>
+        <a href="#stats">实力数据</a>
+        <a href="#flow">合作流程</a>
+        <a href="#wx">联系我</a>
+      </div>
+      <a class="nav-cta" href="#wx">加微信</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="tag">自动化脚本 · 部署运维 · 数据采集 · 网络架构</span>
+    <h1>把重复活交给机器，<span>把精力留给增长</span></h1>
+    <p>我是做技术落地的老手。从一行自动化脚本，到整套系统部署、数据管道、网络架构，帮你把繁琐的事跑通、跑稳、跑省心。</p>
+    <div class="btns">
+      <a class="btn pri" href="#cap">看看我能做什么</a>
+      <a class="btn ghost" href="#wx">加微信聊需求</a>
+    </div>
+  </div>
+</section>
+
+<section id="cap">
+  <div class="wrap">
+    <div class="sec-h"><h2>核心能力</h2><p>四个方向，覆盖你从"想偷懒"到"要规模"的全链路</p></div>
+    <div class="grid">
+      <div class="cap">
+        <div class="ic">⚙️</div>
+        <h3>自动化脚本</h3>
+        <p>爬虫、表单、定时任务、流程编排。把人工点十下的事，写成一次运行。</p>
+      </div>
+      <div class="cap">
+        <div class="ic">🚀</div>
+        <h3>部署运维</h3>
+        <p>服务器、容器、CI/CD、监控告警。上线即稳，半夜不叫你起床。</p>
+      </div>
+      <div class="cap">
+        <div class="ic">📊</div>
+        <h3>数据采集</h3>
+        <p>结构化清洗、接口对接、定时同步。让数据自己流动起来。</p>
+      </div>
+      <div class="cap">
+        <div class="ic">🌐</div>
+        <h3>网络架构</h3>
+        <p>域名、CDN、反向代理、安全加固。快、稳、看得见。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-h"><h2>实力数据</h2><p>用结果说话（示意，可按真实项目替换）</p></div>
+    <div class="stats">
+      <div class="stat"><div class="n">200+</div><div class="l">交付自动化脚本</div></div>
+      <div class="stat"><div class="n">99.9%</div><div class="l">服务可用率</div></div>
+      <div class="stat"><div class="n">5min</div><div class="l">平均故障响应</div></div>
+      <div class="stat"><div class="n">8年</div><div class="l">一线技术沉淀</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-h"><h2>合作流程</h2><p>四步跑通，全程透明</p></div>
+    <div class="steps">
+      <div class="step"><h4>需求沟通</h4><p>说清痛点与目标，我给可行性判断与初步方案。</p></div>
+      <div class="step"><h4>方案报价</h4><p>明确范围、周期、价格，白纸黑字不含糊。</p></div>
+      <div class="step"><h4>开发交付</h4><p>分阶段推进，关键节点可看可测。</p></div>
+      <div class="step"><h4>运维陪跑</h4><p>上线不是终点，稳定运行我兜底。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="wx" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="wx">
+      <div class="txt">
+        <h2>加我微信，聊你的需求</h2>
+        <p>网站只是名片，真正的合作在微信里细聊。扫码或搜微信号，备注"技术需求"，我看到就回。</p>
+        <a class="btn pri" href="#">复制微信号</a>
+      </div>
+      <div class="qr">微信二维码<br>占位图<br>（替换 uploads/wechat.png）</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 云栈技术 · 自动化脚本 / 部署 / 数据 / 网络 &nbsp;|&nbsp; 由 AI 客服实时接待</div>
+</footer>
+
+<!-- AI 客服：先加载 page-agent 内核(iife, 关闭自动初始化)，再由 embed.js 挂载悬浮按钮与面板 -->
+<script src="/xiaohe-agent.iife.js?autoInit=false"></script>
+<script src="/xiaohe-agent-embed.js" data-base="/api/llm-proxy/default" data-token="__REPLACE_TOKEN__"></script>
+</body>
+</html>
